@@ -37,12 +37,7 @@ build() {
 package() {
   cd "$_pkgname-$pkgver"
   install -D vhba.ko "$pkgdir/usr/lib/modules/${_kernver}/extramodules/vhba.ko"
-
-  sed -i "s/EXTRAMODULES=.*/EXTRAMODULES=${_kernver}/extramodules/" \
-    "$startdir/vhba-module.install"
-
   find "$pkgdir" -name '*.ko' -exec gzip -9 {} \;
-
   install -Dm 644 "../60-vhba.rules" \
     "$pkgdir/usr/lib/udev/rules.d/60-$_linuxprefix-vhba.rules"
 }
